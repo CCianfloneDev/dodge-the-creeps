@@ -22,8 +22,6 @@ public partial class Main : Node
 
         Timer mobTimer = GetNode<Timer>("MobTimer");
         mobTimer.Timeout += OnMobTimerTimeout;
-
-        NewGame();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
