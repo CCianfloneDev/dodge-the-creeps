@@ -41,6 +41,9 @@ public partial class Main : Node
 
     public void NewGame()
     {
+        // this will remove all mobs that may have been on the screen at the time of clicking new game.
+        GetTree().CallGroup("mobs", Node.MethodName.QueueFree); 
+
         _score = 0;
 
         Player player = GetNode<Player>("Player");
