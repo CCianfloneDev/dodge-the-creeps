@@ -22,6 +22,9 @@ public partial class Main : Node
 
         Timer mobTimer = GetNode<Timer>("MobTimer");
         mobTimer.Timeout += OnMobTimerTimeout;
+
+        Hud hud = GetNode<Hud>("HUD");
+        hud.StartGame += NewGame;
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,6 +36,7 @@ public partial class Main : Node
     {
         GetNode<Timer>("MobTimer").Stop();
         GetNode<Timer>("ScoreTimer").Stop();
+        GetNode<Hud>("HUD").ShowGameOver();
     }
 
     public void NewGame()
@@ -44,11 +48,16 @@ public partial class Main : Node
         player.Start(startPosition.Position);
 
         GetNode<Timer>("StartTimer").Start();
+
+        Hud hud = GetNode<Hud>("HUD");
+        hud.UpdateScore(_score);
+        hud.ShowMessage("Get Ready!");
     }
 
     private void OnScoreTimerTimeout()
     {
         _score++;
+        GetNode<Hud>("HUD").UpdateScore(_score);
     }
 
     private void OnStartTimerTimeout()
