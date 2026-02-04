@@ -16,8 +16,10 @@ public partial class Player : Area2D
     public override void _Ready()
 	{
         // add events
-        Area2D player = GetNode<Area2D>("Player");
-        player.BodyEntered += OnBodyEntered;
+        //Player player = GetNode<Player>("Player");
+        //player.BodyEntered += OnBodyEntered;
+
+        this.BodyEntered += OnBodyEntered;
 
         // set screen size
         this.ScreenSize = GetViewportRect().Size;
