@@ -6,10 +6,23 @@ public partial class Mob : RigidBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-	}
+        // assign event for when mob exits screen
+        VisibleOnScreenNotifier2D visibleOnScreenNotifier2D = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
+        visibleOnScreenNotifier2D.ScreenExited += OnVisibleOnScreenNotifier2DScreenExited;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+		// randomly set an animation for the mob (3 choices)
+        AnimatedSprite2D animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        string[] mobTypes = animatedSprite2D.SpriteFrames.GetAnimationNames();
+        animatedSprite2D.Play(mobTypes[GD.Randi() % mobTypes.Length]);
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 	}
+
+    private void OnVisibleOnScreenNotifier2DScreenExited()
+    {
+        QueueFree();
+    }
 }
